@@ -1,57 +1,136 @@
-{
-    "name": "Add your full name here",
-    "personal_info": {
-        "Address": "Your Address",
-        "Phone": "Your Phone Number(s)",
-        "Email": "Your Email Address",
-        "LinkedIn": "[invalid URL removed]",
-        "Spoken Languages": "List your spoken languages and proficiency levels here",
-        "Marital Status": "Your Marital Status"
-    },
-    "summary": "Write your professional summary here. Briefly highlight your skills and experience.",
-    "experience": [
-        {
-            "title": "Job Title 1",
-            "company": "Company Name 1",
-            "location": "Location 1",
-            "dates": "Start Date 1 – End Date 1",
-            "description": "Write a description of your responsibilities and achievements in position 1."
-        },
-        {
-            "title": "Job Title 2",
-            "company": "Company Name 2",
-            "location": "Location 2",
-            "dates": "Start Date 2 – End Date 2",
-            "description": "Write a description of your responsibilities and achievements in position 2 (and so on for additional experiences)."
-        }
-    ],
-    "education": [
-        {
-            "degree": "Your Degree Name 1",
-            "school": "School Name 1",
-            "dates": "Graduation Year 1"
-        },
-        {
-            "degree": "Your Degree Name 2",
-            "school": "School Name 2",
-            "dates": "Graduation Year 2 (and so on for additional qualifications)"
-        }
-    ],
-    "courses": [
-        "Course Title 1, Provider Name 1 (Completion Dates)",
-        "Course Title 2, Provider Name 2 (Completion Dates) (and so on for additional courses)"
-    ],
-    "technical_skills": [
-        "Technical Skill 1 - Proficiency Level",
-        "Technical Skill 2 - Proficiency Level (and so on for your technical skills)",
-        "Add or remove skills based on your experience."
-    ],
-    "projects": [
-        "Project Name 1 - Brief Description (Technologies Used)",
-        "Project Name 2 - Brief Description (Technologies Used) (and so on for your projects)"
-    ],
-    "hobbies": [
-        "Your Hobby 1",
-        "Your Hobby 2 (and so on for your hobbies)"
-    ]
-}
+from reportlab.lib.pagesizes import A4
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib import colors
+
+# Output file name
+output_path = "Gagan_Raghuwanshi_CV_Exact.pdf"
+
+# Create the document
+doc = SimpleDocTemplate(output_path, pagesize=A4, rightMargin=40, leftMargin=40, topMargin=60, bottomMargin=40)
+styles = getSampleStyleSheet()
+
+# Define custom styles to match the design of your friend's CV
+title_style = ParagraphStyle(
+    "TitleStyle",
+    parent=styles["Heading1"],
+    fontName="Helvetica-Bold",
+    fontSize=20,
+    textColor=colors.HexColor("#003366"),
+    alignment=1,
+    spaceAfter=10,
+)
+subtitle_style = ParagraphStyle(
+    "SubtitleStyle",
+    parent=styles["Normal"],
+    fontName="Helvetica-Oblique",
+    fontSize=12,
+    alignment=1,
+    spaceAfter=10,
+)
+normal_style = ParagraphStyle(
+    "NormalStyle",
+    parent=styles["Normal"],
+    fontName="Helvetica",
+    fontSize=11,
+    spaceAfter=8,
+)
+section_title_style = ParagraphStyle(
+    "SectionTitleStyle",
+    parent=styles["Heading2"],
+    fontName="Helvetica-Bold",
+    fontSize=12,
+    textColor=colors.HexColor("#003366"),
+    spaceAfter=6,
+)
+
+# Build the content
+content = []
+
+# Header Section
+content.append(Paragraph("GAGAN RAGHUWANSHI", title_style))
+content.append(Paragraph("SAGE UNIVERSITY CERTIFIED", subtitle_style))
+content.append(Paragraph("Bhopal, India 462022", normal_style))
+content.append(Paragraph("Phone: +91-9589111120", normal_style))
+content.append(Paragraph("Email: raghuwanshigagan888@gmail.com", normal_style))
+content.append(Spacer(1, 12))
+
+# Summary Section
+content.append(Paragraph("SUMMARY", section_title_style))
+content.append(Paragraph(
+    "To utilize my MBA education, honed strategic thinking, and leadership abilities to drive innovation, enhance operational efficiency, and deliver sustainable business growth in a dynamic and competitive business environment. Seeking opportunities that enable me to leverage my diverse skill set to make a meaningful impact on an organization's success.",
+    normal_style))
+content.append(Spacer(1, 12))
+
+# Experience Section (Internship)
+content.append(Paragraph("EXPERIENCE", section_title_style))
+content.append(Paragraph("<b>INTERNSHIP</b>", normal_style))
+content.append(Paragraph("<b>Incubation Masters</b> - Bhopal", normal_style))
+content.append(Paragraph("09/2022 (1 Month)", normal_style))
+content.append(Paragraph("<b>Intern</b>", normal_style))
+content.append(Paragraph("• Learned ERP software functionalities and managed social media promotion.", normal_style))
+content.append(Paragraph("• Assisted in planning and executing digital marketing strategies.", normal_style))
+content.append(Spacer(1, 12))
+
+# Certifications Section
+content.append(Paragraph("CERTIFICATIONS", section_title_style))
+content.append(Paragraph("• Certificate of Participation in Sage Summer School for Entrepreneurial Skills Development with Case Studies.", normal_style))
+content.append(Paragraph("• Save Foundation Social Activities for Vulnerable Environment.", normal_style))
+content.append(Spacer(1, 12))
+
+# Skills Section
+content.append(Paragraph("SKILLS", section_title_style))
+content.append(Paragraph("• Basic Computer Applications", normal_style))
+content.append(Paragraph("• ERP Software Familiarity", normal_style))
+content.append(Paragraph("• Social Media Management", normal_style))
+content.append(Paragraph("• Marketing Analysis", normal_style))
+content.append(Paragraph("• Research & Analytical Skills", normal_style))
+content.append(Spacer(1, 12))
+
+# Hobbies and Interests Section
+content.append(Paragraph("HOBBIES AND INTERESTS", section_title_style))
+content.append(Paragraph("• Reading", normal_style))
+content.append(Paragraph("• Writing", normal_style))
+content.append(Spacer(1, 12))
+
+# Education Section
+content.append(Paragraph("EDUCATION", section_title_style))
+edu_data = [
+    ["Degree", "Institute", "Year", "Percentage"],
+    ["BBA : BUSINESS ADMINISTRATION", "RKDF University, Bhopal", "2017-2020", "69.79%"],
+    ["MBA : MARKETING + IT", "Sage University, Bhopal", "2021-2023", "72.02%"],
+]
+edu_table = Table(edu_data, colWidths=[200, 150, 70, 70])
+edu_table.setStyle(TableStyle([
+    ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#003366")),
+    ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+    ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+    ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+    ('BOTTOMPADDING', (0, 0), (-1, 0), 6),
+    ('BACKGROUND', (0, 1), (-1, -1), colors.whitesmoke),
+    ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
+]))
+content.append(edu_table)
+content.append(Spacer(1, 12))
+
+# Languages Section
+content.append(Paragraph("LANGUAGES", section_title_style))
+content.append(Paragraph("English, Hindi: First Language", normal_style))
+content.append(Spacer(1, 12))
+
+# Accomplishments and Awards Section
+content.append(Paragraph("ACCOMPLISHMENTS AND AWARDS", section_title_style))
+content.append(Paragraph("None", normal_style))
+content.append(Spacer(1, 12))
+
+# Declaration Section
+content.append(Paragraph("DECLARATION", section_title_style))
+content.append(Paragraph("I hereby declare that the above information is true and correct to the best of my knowledge.", normal_style))
+content.append(Spacer(1, 12))
+content.append(Paragraph("Place: Bhopal", normal_style))
+content.append(Paragraph("Date: [Enter Date]", normal_style))
+content.append(Paragraph("Signature: Gagan Raghuwanshi", normal_style))
+
+# Build the PDF
+doc.build(content)
+print("PDF generated successfully as", output_path)
